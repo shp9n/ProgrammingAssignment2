@@ -7,13 +7,16 @@
 makeCacheMatrix <- function(mtx = matrix()) {
     inverse <- NULL
     set <- function(x) {
-        mtx <<- x;
-        inverse <<- NULL;
+        mtx <<- x; #assign the input matrix x to the variable mtx 
+        inverse <<- NULL; #re-initialize inverse in the parent environment to null 
     }
-    get <- function() return(mtx);
-    setinv <- function(inv) inverse <<- inv;
-    getinv <- function() return(inverse);
-    return(list(set = set, get = get, setinv = setinv, getinv = getinv))
+    get <- function() return(mtx); #return the matrix mtx
+    setinv <- function(inv) inverse <<- inv; #set the inverse equal to the inverse of the matrix x 
+    getinv <- function() return(inverse); #return the cached inverse of x 
+    return(list(set = set, 
+    get = get, 
+    setinv = setinv, 
+    getinv = getinv))
 }
 
 ## This function computes the inverse of the special
@@ -21,7 +24,7 @@ makeCacheMatrix <- function(mtx = matrix()) {
 ## already been calculated (and the matrix has not changed), then
 ## `cacheSolve` should retrieve the inverse from the cache.
 
-cacheSolve <- function(mtx, ...) {
+cacheSolve <- function(mtx, ...) { #return a matrix that is the inverse of mtx
     inverse <- mtx$getinv()
     if(!is.null(inverse)) {
         message("Getting cached data...")
